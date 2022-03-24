@@ -13,5 +13,10 @@ $small: 576px;
 }
 
 @mixin transition {
-    transition: all 0.3s ease-in-out;
+    transition: all 0.4s ease-out;
+}
+
+@font-face {
+    font-family: "Pokemon";
+    src: url('./fonts/Pokemon\ Solid.ttf');
 }
