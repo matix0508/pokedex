@@ -3,12 +3,12 @@ import React from 'react';
 // import { Counter } from './features/counter/Counter';
 import './App.scss';
 import classNames from 'classnames';
-import { Table } from './components/Table/Table';
+// import { Table } from './components/Table/Table';
 
 function App() {
   return (
     <div className={classNames(["App"])}>
-      <Table rawData={}/>
+      {/* <Table rawData={}/> */}
 
 
 
