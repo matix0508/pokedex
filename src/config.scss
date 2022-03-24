@@ -1,0 +1,17 @@
+$primary: #FF0000;
+$onPrimary: #000000;
+$secondary: #3B4CCA;
+$onSecondary: #f4f4f6;
+$bg: lighten(#FFDE00, 20);
+$onBg: #000;
+$large: 1300px;
+$big: 992px;
+$medium: 768px;
+$small: 576px;
+@mixin shadow {
+    box-shadow: 0 1px 5px #000;
+}
+
+@mixin transition {
+    transition: all 0.3s ease-in-out;
+}
