@@ -1,18 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.scss';
-import classNames from 'classnames';
-// import { Table } from './components/Table/Table';
+import React from "react";
+import "./App.scss";
+import classNames from "classnames";
+import { Pokemon } from "./types/Pokemon";
+import { Table } from './components/Table/Table';
+
+const data:Pokemon[] = [
+  {
+    name: "Pikachu",
+    type: "Yelow",
+    sprite: "Yes?"
+  },
+  {
+    name: "Pikachu",
+    type: "Yelow",
+    sprite: "Yes?"
+  },
+  {
+    name: "Pikachu",
+    type: "Yelow",
+    sprite: "Yes?"
+  },
+]
 
 function App() {
   return (
     <div className={classNames(["App"])}>
-      {/* <Table rawData={}/> */}
+      <Table rawData={data} onClick={() => {}}/>
 
-
-
-      <header className="App-header">
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
         <p>
@@ -56,7 +71,7 @@ function App() {
             React Redux
           </a>
         </span>
-      </header>
+  </header> */}
     </div>
   );
 }

@@ -1,3 +1,25 @@
+@import "../../config.scss";
 .table {
-    background-color: aqua;
+    margin: 5rem;
+    padding: 1rem;
+    background-color: $primary;
+    border-radius: 0.5rem;
+    th {
+        border-width: 0rem;
+        border-bottom: 0.2rem;
+        border-style: groove;
+        border-color: $secondary;
+    }
+    tbody {
+        tr {
+            @include transition;
+            &:hover {
+                background-color: darken($color: $primary, $amount: 10);
+            }
+        }
+        td {
+            margin: 1rem;
+            padding: 1rem;
+        }
+    }
 }

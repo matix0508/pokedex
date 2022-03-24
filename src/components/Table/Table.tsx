@@ -2,10 +2,11 @@
 import React, { FC } from "react";
 import { useTable } from "react-table";
 import styles from "./Table.module.scss";
+import {Pokemon} from "../../types/Pokemon"
 
 interface ITable {
-  rawData: any[];
-  onClick: (ex: any) => void;
+  rawData: Pokemon[];
+  onClick: (ex: Pokemon) => void;
 }
 
 
