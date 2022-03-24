@@ -18,9 +18,10 @@
     }
     tbody {
         tr {
+            cursor: pointer;
             @include transition;
             &:hover {
-                background-color: darken($color: $primary, $amount: 10);
+                color: darken($secondary, 20);
             }
         }
         td {
