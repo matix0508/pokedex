@@ -9,6 +9,8 @@ const data: Pokemon[] = [
     name: "Pikachu",
     type: "Yelow",
     sprite: "Yes?",
+    height: 12,
+    weight: 31
   },
   {
     name: "Pikachu",

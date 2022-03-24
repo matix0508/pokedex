@@ -8,6 +8,7 @@ $large: 1300px;
 $big: 992px;
 $medium: 768px;
 $small: 576px;
+$radius: 0.5rem;
 @mixin shadow {
     box-shadow: 0 1px 5px #000;
 }

@@ -2,7 +2,7 @@
 .Table {
     margin: 7rem;
     background-color: $primary;
-    border-radius: 0.5rem;
+    border-radius: $radius;
     overflow-y: scroll;
     height: 70vh;
     width: fit-content;
@@ -42,7 +42,7 @@
         tr {
             cursor: pointer;
             @include transition;
-            border-radius: 1rem;
+            border-radius: $radius;
             &:hover {
                 color: darken($secondary, 20);
                 @include shadow;
