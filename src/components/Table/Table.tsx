@@ -2,13 +2,12 @@
 import React, { FC } from "react";
 import { useTable } from "react-table";
 import styles from "./Table.module.scss";
-import {Pokemon} from "../../types/Pokemon"
+import { Pokemon } from "../../types/Pokemon";
 
 interface ITable {
   rawData: Pokemon[];
   onClick: (ex: Pokemon) => void;
 }
-
 
 function getColumn(name: string) {
   const output = {
@@ -37,33 +36,37 @@ export const Table: FC<ITable> = ({ rawData, onClick }) => {
 
   // Render the UI for your table
   return (
-    <table className={styles.table} {...getTableProps()}>
-      <thead>
-        {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row) => {
-          prepareRow(row);
-          return (
-            <tr
-              onClick={() => {
-                onClick(row.original.self);
-              }}
-              {...row.getRowProps()}
-            >
-              {row.cells.map((cell) => {
-                return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
-              })}
+    <div className={styles.table}>
+      <table {...getTableProps()}>
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+              ))}
             </tr>
-          );
-        })}
-      </tbody>
-    </table>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map((row) => {
+            prepareRow(row);
+            return (
+              <tr
+                onClick={() => {
+                  onClick(row.original.self);
+                }}
+                {...row.getRowProps()}
+              >
+                {row.cells.map((cell) => {
+                  return (
+                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
   );
 };
