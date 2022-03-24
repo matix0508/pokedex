@@ -1,14 +1,20 @@
 @import "../../config.scss";
 .table {
-    margin: 5rem;
+    margin: 7rem;
     padding: 1rem;
     background-color: $primary;
     border-radius: 0.5rem;
-    th {
-        border-width: 0rem;
-        border-bottom: 0.2rem;
-        border-style: groove;
-        border-color: $secondary;
+    thead {
+        th {
+            @include transition;
+            border-width: 0rem;
+            border-bottom: 0.2rem;
+            border-style: groove;
+            border-color: $secondary;
+            &:hover {
+                color: darken($secondary, 20);
+            }
+        }
     }
     tbody {
         tr {
