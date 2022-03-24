@@ -1,107 +1,118 @@
-import React from "react";
-import "./App.scss";
-import classNames from "classnames";
+import React, { useState } from "react";
+import styles from "./App.module.scss";
 import { Pokemon } from "./types/Pokemon";
-import { Table } from './components/Table/Table';
+import { Table } from "./components/Table/Table";
+import { Box } from "./components/Box/Box";
 
-const data:Pokemon[] = [
+const data: Pokemon[] = [
   {
     name: "Pikachu",
     type: "Yelow",
-    sprite: "Yes?"
+    sprite: "Yes?",
+    height: 12,
+    weight: 31
   },
   {
     name: "Pikachu",
     type: "Yelow",
-    sprite: "Yes?"
+    sprite: "Yes?",
   },
   {
     name: "Pikachu",
     type: "Yelow",
-    sprite: "Yes?"
+    sprite: "Yes?",
   },
   {
     name: "Pikachu",
     type: "Yelow",
-    sprite: "Yes?"
+    sprite: "Yes?",
   },
   {
     name: "Pikachu",
     type: "Yelow",
-    sprite: "Yes?"
+    sprite: "Yes?",
   },
   {
     name: "Pikachu",
     type: "Yelow",
-    sprite: "Yes?"
+    sprite: "Yes?",
   },
   {
     name: "Pikachu",
     type: "Yelow",
-    sprite: "Yes?"
+    sprite: "Yes?",
   },
   {
     name: "Pikachu",
     type: "Yelow",
-    sprite: "Yes?"
+    sprite: "Yes?",
   },
   {
     name: "Pikachu",
     type: "Yelow",
-    sprite: "Yes?"
+    sprite: "Yes?",
   },
   {
     name: "Pikachu",
     type: "Yelow",
-    sprite: "Yes?"
+    sprite: "Yes?",
   },
   {
     name: "Pikachu",
     type: "Yelow",
-    sprite: "Yes?"
+    sprite: "Yes?",
   },
   {
     name: "Pikachu",
     type: "Yelow",
-    sprite: "Yes?"
+    sprite: "Yes?",
   },
   {
     name: "Pikachu",
     type: "Yelow",
-    sprite: "Yes?"
+    sprite: "Yes?",
   },
   {
     name: "Pikachu",
     type: "Yelow",
-    sprite: "Yes?"
+    sprite: "Yes?",
   },
   {
     name: "Pikachu",
     type: "Yelow",
-    sprite: "Yes?"
+    sprite: "Yes?",
   },
   {
     name: "Pikachu",
     type: "Yelow",
-    sprite: "Yes?"
+    sprite: "Yes?",
   },
   {
     name: "Pikachu",
     type: "Yelow",
-    sprite: "Yes?"
+    sprite: "Yes?",
   },
   {
     name: "Pikachu",
     type: "Yelow",
-    sprite: "Yes?"
+    sprite: "Yes?",
   },
-]
+];
 
 function App() {
+  const [current, setCurrent] = useState<Pokemon>();
   return (
-    <main className={classNames(["App"])}>
-      <Table rawData={data} onClick={() => {}}/>
-    </main>
+    <>
+      <main className={styles.App}>
+        <Table
+          rawData={data}
+          onClick={(p: Pokemon) => {
+            setCurrent(p);
+          }}
+        />
+        {!!current ? <Box pokemon={current} /> : <></>}
+      </main>
+    </>
   );
 }
 

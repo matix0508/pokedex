@@ -36,7 +36,7 @@ export const Table: FC<ITable> = ({ rawData, onClick }) => {
 
   // Render the UI for your table
   return (
-    <div className={styles.table}>
+    <div className={styles.Table}>
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
@@ -53,7 +53,7 @@ export const Table: FC<ITable> = ({ rawData, onClick }) => {
             return (
               <tr
                 onClick={() => {
-                  onClick(row.original.self);
+                  onClick(row.original);
                 }}
                 {...row.getRowProps()}
               >

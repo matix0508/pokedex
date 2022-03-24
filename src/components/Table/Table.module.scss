@@ -1,10 +1,10 @@
 @import "../../config.scss";
-.table {
+.Table {
     margin: 7rem;
     background-color: $primary;
-    border-radius: 0.5rem;
+    border-radius: $radius;
     overflow-y: scroll;
-    height: 72vh;
+    height: 70vh;
     width: fit-content;
     @include shadow;
     -ms-overflow-style: none;
@@ -15,6 +15,7 @@
     table {
         margin: 1rem;
         padding: 1rem;
+        padding-top: 0;
     }
     thead {
         position: sticky;
@@ -26,7 +27,7 @@
             padding: 1rem;
         }
         th {
-            padding: 0.5rem;
+            padding: 0.8rem;
             @include transition;
             border-width: 0rem;
             border-bottom: 0.2rem;
@@ -41,8 +42,10 @@
         tr {
             cursor: pointer;
             @include transition;
+            border-radius: $radius;
             &:hover {
                 color: darken($secondary, 20);
+                @include shadow;
             }
         }
         td {
