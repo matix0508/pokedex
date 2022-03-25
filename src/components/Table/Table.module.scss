@@ -1,10 +1,12 @@
 @import "../../config.scss";
 .Table {
-    margin: 7rem;
+    margin: auto;
+    margin-right: 5rem;
     background-color: $primary;
-    border-radius: $radius;
+    color: $onPrimary;
+    border-radius: 0.5rem;
     overflow-y: scroll;
-    height: 70vh;
+    height: 65vh;
     width: fit-content;
     @include shadow;
     -ms-overflow-style: none;

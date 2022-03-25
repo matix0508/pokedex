@@ -1,12 +1,15 @@
 @import "../../config.scss";
 .Box {
+    height: fit-content;
+    width: fit-content;
     padding: 1rem;
-    margin: 1rem;
+    margin-left: 5rem;
     background-color: $primary;
     border-radius: $radius;
     @include shadow;
     display: flex;
     flex-direction: column;
+    color: $onPrimary;
     &__header {
         font-family: "Pokemon";
         font-size: 3rem;
