@@ -19,3 +19,6 @@ npm install
 ```bash
 npm run start
 ```
+
+## Live
+- to see a live version of an app go to: (https://matix0508.github.io/pokedex/)[https://matix0508.github.io/pokedex/]
