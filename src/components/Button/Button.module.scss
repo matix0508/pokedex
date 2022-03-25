@@ -1,0 +1,17 @@
+@import "../../config.scss";
+.Button {
+    margin: 1rem;
+    margin-top: 0;
+    margin-bottom: 3rem;
+    padding: 1rem;
+    border-radius: $radius;
+    height: fit-content;
+    width: fit-content;
+    background-color: $secondary;
+    color: $onSecondary;
+    cursor: pointer;
+    @include transition;
+    &:hover {
+        @include shadow;
+    }
+}
