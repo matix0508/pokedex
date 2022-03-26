@@ -12,9 +12,11 @@ export const Box: FC<IBox> = ({ pokemon }) => {
     <div className={styles.Box}>
       <div className={styles.Box__header}>{pokemon.name}</div>
       <div className={styles.Box__body}>
+        <img src={pokemon.sprite} width={96} alt={pokemon.name} />
         <ul>
-          <BoxItem label="Type">{pokemon.type}</BoxItem>
-          <BoxItem label="Sprite">{pokemon.sprite}</BoxItem>
+          <BoxItem label="Type">
+            {pokemon.type.join(", ")}
+            </BoxItem>
           <BoxItem label="Height">{pokemon.height}</BoxItem>
           <BoxItem label="Weight">{pokemon.weight}</BoxItem>
         </ul>
