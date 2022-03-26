@@ -5,11 +5,16 @@ import { Table } from "./components/Table/Table";
 import { Box } from "./components/Box/Box";
 import { Button } from "./components/Button/Button";
 import { useFetch } from "./services/useFetch";
+import { incrementAsync } from "./features/counter/counterSlice";
+import { useAppDispatch, useAppSelector } from "./app/hooks";
+import { RootState } from "./app/store";
 
 
 function App() {
   const [current, setCurrent] = useState<Pokemon>();
   const {data, isLoading} = useFetch();
+  const dispatch = useAppDispatch()
+  const tab = useAppSelector((state: RootState) => state.counter.value)
   if (isLoading) return <>Loading...</>;
 
   if (!data) {return <>No data</>}
@@ -22,11 +27,11 @@ function App() {
     <>
       <header>
         <h1>Pokedex</h1>
-        <Button>Bring Me new Pokemons!</Button>
+        <Button onClick={() => {dispatch(incrementAsync(2))}}>Bring Me new Pokemons!</Button>
       </header>
       <main className={styles.App}>
         <Table
-          rawData={data}
+          rawData={tab}
           onClick={(p: Pokemon) => {
             setCurrent(p);
           }}
