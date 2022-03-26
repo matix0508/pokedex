@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import React, { FC, JSXElementConstructor } from "react";
+import React, { FC } from "react";
 import { useTable } from "react-table";
 import styles from "./Table.module.scss";
 import { Pokemon } from "../../types/Pokemon";
@@ -32,7 +32,7 @@ function getColumn(name: string) {
       ...output,
       Cell: (tableProps: any) => (
         <ul>
-          <li>{tableProps.row.original.type}</li>
+          {tableProps.row.original.type.map((item: string) => (<li>{item}</li>))}
         </ul>
       )
     }
