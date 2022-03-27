@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
-import React, { FC } from "react";
-import { useTable } from "react-table";
+import React, { FC, useEffect, useState } from "react";
+import { useSortBy, useTable } from "react-table";
 import styles from "./Table.module.scss";
 import { Pokemon } from "../../types/Pokemon";
 
@@ -13,50 +13,58 @@ interface IColumn {
   Header: string;
   accessor: string;
   Cell?: (props: any) => any;
+  disableSortBy?: boolean
 }
 
-function getColumn(name: string) {
-  let output: IColumn = {
-    Header: name,
-    accessor: name.toLowerCase(),
-  };
-  if (name === "Sprite") {
-    output = {
-      ...output,
+enum Sorted {
+  NotSorted,
+  Ascending,
+  Descending,
+}
+
+const getColumns:IColumn[] = [
+    {
+      Header: "Name",
+      accessor: "name",
+    },
+    {
+      Header: "Type",
+      accessor: "type",
+      Cell: (tableProps: any) => (
+        <ul>
+          {tableProps.row.original.type.map((item: string, i: number) => (
+            <li key={i}>{item}</li>
+          ))}
+        </ul>
+      ),
+      disableSortBy: true
+    },
+    {
+      Header: "Sprite",
+      accessor: "sprite",
       Cell: (tableProps: any) => (
         <img src={tableProps.row.original.sprite} width={60} alt={"Pokemon"} />
       ),
-    }
-  } else if (name === "Type") {
-    output = {
-      ...output,
-      Cell: (tableProps: any) => (
-        <ul>
-          {tableProps.row.original.type.map((item: string, i: number) => (<li key={i}>{item}</li>))}
-        </ul>
-      )
-    }
-  }
-  return output;
-}
-
-function getColumns() {
-  return ["Name", "Type", "Sprite"];
-}
+      disableSortBy: true
+    },
+  ];
 
 export const Table: FC<ITable> = ({ rawData, onClick }) => {
   const columns = React.useMemo(
-    () => getColumns().map((c) => getColumn(c)),
+    () => (getColumns),
     []
   );
-  console.log(rawData);
 
   const data = React.useMemo(() => rawData, [rawData]);
+
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable<any>({
-      columns,
-      data,
-    });
+    useTable<any>(
+      {
+        data,
+        columns,
+      },
+      useSortBy
+    );
 
   // Render the UI for your table
   return (
@@ -66,7 +74,16 @@ export const Table: FC<ITable> = ({ rawData, onClick }) => {
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  {column.render("Header")}
+                  <span>
+                    {column.isSorted
+                      ? column.isSortedDesc
+                        ? " 🔽"
+                        : " 🔼"
+                      : ""}
+                  </span>
+                </th>
               ))}
             </tr>
           ))}
