@@ -1,62 +1,91 @@
 /* eslint-disable react/jsx-key */
 import React, { FC } from "react";
-import { useTable } from "react-table";
+import {
+  Column,
+  FilterTypes,
+  useFilters,
+  useSortBy,
+  useTable,
+} from "react-table";
 import styles from "./Table.module.scss";
 import { Pokemon } from "../../types/Pokemon";
+import { NameFilter } from "../Filter/NameFilter";
+import { TypeFilter } from "../Filter/TypeFilter";
 
 interface ITable {
   rawData: Pokemon[];
   onClick: (ex: Pokemon) => void;
 }
 
-interface IColumn {
-  Header: string;
-  accessor: string;
-  Cell?: (props: any) => any;
-}
-
-function getColumn(name: string) {
-  let output: IColumn = {
-    Header: name,
-    accessor: name.toLowerCase(),
-  };
-  if (name === "Sprite") {
-    output = {
-      ...output,
-      Cell: (tableProps: any) => (
-        <img src={tableProps.row.original.sprite} width={60} alt={"Pokemon"} />
-      ),
-    }
-  } else if (name === "Type") {
-    output = {
-      ...output,
-      Cell: (tableProps: any) => (
-        <ul>
-          {tableProps.row.original.type.map((item: string, i: number) => (<li key={i}>{item}</li>))}
-        </ul>
-      )
-    }
-  }
-  return output;
-}
-
-function getColumns() {
-  return ["Name", "Type", "Sprite"];
-}
+const getColumns: Column<Pokemon>[] = [
+  {
+    Header: "Name",
+    accessor: "name",
+  },
+  {
+    Header: "Type",
+    accessor: "type",
+    Cell: (tableProps: any) => (
+      <ul>
+        {tableProps.row.original.type.map((item: string, i: number) => (
+          <li key={i}>{item}</li>
+        ))}
+      </ul>
+    ),
+    disableSortBy: true,
+    Filter: TypeFilter,
+  },
+  {
+    Header: "Sprite",
+    accessor: "sprite",
+    Cell: (tableProps: any) => (
+      <img src={tableProps.row.original.sprite} width={60} alt={"Pokemon"} />
+    ),
+    disableSortBy: true,
+    disableFilters: true,
+  },
+];
 
 export const Table: FC<ITable> = ({ rawData, onClick }) => {
-  const columns = React.useMemo(
-    () => getColumns().map((c) => getColumn(c)),
+  const filterTypes: FilterTypes<Pokemon> = React.useMemo(
+    () => ({
+      text: (rows, filterValue, id) => {
+        return rows.filter((row) => {
+          const rowValue = row.values[id];
+          return rowValue !== undefined
+            ? String(rowValue)
+                .toLowerCase()
+                .startsWith(String(filterValue).toLowerCase())
+            : true;
+        });
+      },
+    }),
     []
   );
-  console.log(rawData);
+
+  const defaultColumn = React.useMemo(
+    () => ({
+      // Let's set up our default Filter UI
+      Filter: NameFilter,
+    }),
+    []
+  );
+
+  const columns = React.useMemo(() => getColumns, []);
 
   const data = React.useMemo(() => rawData, [rawData]);
+
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable<any>({
-      columns,
-      data,
-    });
+    useTable<Pokemon>(
+      {
+        data,
+        columns,
+        defaultColumn,
+        filterTypes,
+      },
+      useFilters,
+      useSortBy
+    );
 
   // Render the UI for your table
   return (
@@ -66,7 +95,22 @@ export const Table: FC<ITable> = ({ rawData, onClick }) => {
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+                <th>
+                  <span
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                  >
+                    {column.render("Header")}
+                  </span>
+
+                  <span>
+                    {column.isSorted
+                      ? column.isSortedDesc
+                        ? " 🔽"
+                        : " 🔼"
+                      : ""}
+                  </span>
+                  <div>{column.canFilter ? column.render("Filter") : null}</div>
+                </th>
               ))}
             </tr>
           ))}
