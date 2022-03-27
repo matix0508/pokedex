@@ -10,9 +10,12 @@ interface IBox {
 export const Box: FC<IBox> = ({ pokemon }) => {
   return (
     <div className={styles.Box}>
-      <div className={styles.Box__header}>{pokemon.name}</div>
+      <div className={styles.Box__header}>
+        <img src={pokemon.sprite} width={150} alt={pokemon.name} />
+        {pokemon.name}
+        </div>
       <div className={styles.Box__body}>
-        <img src={pokemon.sprite} width={96} alt={pokemon.name} />
+        
         <ul>
           <BoxItem label="Type">
             {pokemon.type.join(", ")}

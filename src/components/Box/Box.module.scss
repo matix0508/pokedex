@@ -1,7 +1,7 @@
 @import "../../config.scss";
 .Box {
     height: fit-content;
-    width: fit-content;
+    width: 40%;
     padding: 1rem;
     margin-left: 5rem;
     background-color: $primary;
@@ -11,13 +11,24 @@
     flex-direction: column;
     color: $onPrimary;
     &__header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         font-family: "Pokemon";
         font-size: 3rem;
         margin: 1rem;
         padding: 1rem;
-        @include transition;
-        &:hover {
-            color: $secondary;
+        padding-bottom: 0;
+        margin-bottom: 0;
+        img {
+            border-radius: 50%;
+            margin: 0.5rem;
+            padding: 0.5rem;
+            @include transition;
+            &:hover {
+                @include shadow;
+            }
         }
     }
     &__body {
@@ -27,6 +38,8 @@
             list-style: none;
             padding: 0.5rem;
             margin: 1rem;
+            margin-top: 0;
+            padding-top: 0;
             li {
                 padding: 0.5rem;
                 margin: 0.5rem;

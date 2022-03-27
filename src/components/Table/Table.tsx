@@ -32,7 +32,7 @@ function getColumn(name: string) {
       ...output,
       Cell: (tableProps: any) => (
         <ul>
-          {tableProps.row.original.type.map((item: string) => (<li>{item}</li>))}
+          {tableProps.row.original.type.map((item: string, i: number) => (<li key={i}>{item}</li>))}
         </ul>
       )
     }
