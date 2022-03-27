@@ -7,6 +7,7 @@ import { Button } from "./components/Button/Button";
 import { AddPokemons } from "./features/pokemonSlice";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { RootState } from "./app/store";
+import { Counter } from "./components/Counter/Counter";
 
 function App() {
   const [current, setCurrent] = useState<Pokemon>();
@@ -19,14 +20,13 @@ function App() {
   }, [dispatch]);
 
   switch (status) {
-    case "loading":
-      return <>Loading...</>;
     case "failed":
       return <>An Error Has occured</>;
   }
 
   return (
     <>
+    <Counter pokemons={tab.length} />
       <header>
         <h1>Pokedex</h1>
         <Button
@@ -34,7 +34,7 @@ function App() {
             dispatch(AddPokemons(tab.length));
           }}
         >
-          Bring Me new Pokemons!
+          {status === "loading" ? "Getting them..." : "Bring Me MORE Pokemons!"}
         </Button>
       </header>
       <main className={styles.App}>
