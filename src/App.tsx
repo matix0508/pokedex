@@ -1,33 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./App.module.scss";
 import { Pokemon } from "./types/Pokemon";
 import { Table } from "./components/Table/Table";
 import { Box } from "./components/Box/Box";
 import { Button } from "./components/Button/Button";
-import { useFetch } from "./services/useFetch";
-import { incrementAsync } from "./features/counter/counterSlice";
+import { AddPokemons } from "./features/pokemonSlice";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { RootState } from "./app/store";
 
-
 function App() {
   const [current, setCurrent] = useState<Pokemon>();
-  const {data, isLoading} = useFetch();
-  const dispatch = useAppDispatch()
-  const tab = useAppSelector((state: RootState) => state.counter.value)
-  if (isLoading) return <>Loading...</>;
+  const dispatch = useAppDispatch();
+  const tab = useAppSelector((state: RootState) => state.counter.value);
+  const status = useAppSelector((state: RootState) => state.counter.status);
 
-  if (!data) {return <>No data</>}
+  useEffect(() => {
+    dispatch(AddPokemons(0));
+  }, [dispatch]);
 
-
-
-
+  switch (status) {
+    case "loading":
+      return <>Loading...</>;
+    case "failed":
+      return <>An Error Has occured</>;
+  }
 
   return (
     <>
       <header>
         <h1>Pokedex</h1>
-        <Button onClick={() => {dispatch(incrementAsync(2))}}>Bring Me new Pokemons!</Button>
+        <Button
+          onClick={() => {
+            dispatch(AddPokemons(tab.length));
+          }}
+        >
+          Bring Me new Pokemons!
+        </Button>
       </header>
       <main className={styles.App}>
         <Table
