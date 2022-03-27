@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
-import React, { FC, useEffect, useState } from "react";
-import { useSortBy, useTable } from "react-table";
+import React, { FC } from "react";
+import { Column, useSortBy, useTable } from "react-table";
 import styles from "./Table.module.scss";
 import { Pokemon } from "../../types/Pokemon";
 
@@ -9,20 +9,9 @@ interface ITable {
   onClick: (ex: Pokemon) => void;
 }
 
-interface IColumn {
-  Header: string;
-  accessor: string;
-  Cell?: (props: any) => any;
-  disableSortBy?: boolean
-}
 
-enum Sorted {
-  NotSorted,
-  Ascending,
-  Descending,
-}
 
-const getColumns:IColumn[] = [
+const getColumns:Column<Pokemon>[] = [
     {
       Header: "Name",
       accessor: "name",
@@ -58,7 +47,7 @@ export const Table: FC<ITable> = ({ rawData, onClick }) => {
   const data = React.useMemo(() => rawData, [rawData]);
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable<any>(
+    useTable<Pokemon>(
       {
         data,
         columns,
