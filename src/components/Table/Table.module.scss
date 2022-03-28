@@ -2,8 +2,6 @@
 .Table {
     margin: auto;
     margin-right: 5rem;
-    background-color: $primary;
-    color: $onPrimary;
     border-radius: 0.5rem;
     overflow-y: scroll;
     height: 65vh;
@@ -22,7 +20,6 @@
     thead {
         position: sticky;
         top: 0;
-        background-color: $primary;
         width: 100%;
         height: 100%;
         tr {
