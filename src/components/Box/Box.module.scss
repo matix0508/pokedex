@@ -4,18 +4,18 @@
     width: 40%;
     padding: 1rem;
     margin-left: 5rem;
-    background-color: $primary;
     border-radius: $radius;
     @include shadow;
+    @include transition;
     display: flex;
     flex-direction: column;
-    color: $onPrimary;
     &__header {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         font-family: "Pokemon";
+        letter-spacing: 0.1em;
         font-size: 3rem;
         margin: 1rem;
         padding: 1rem;

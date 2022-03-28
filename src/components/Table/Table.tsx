@@ -11,6 +11,9 @@ import styles from "./Table.module.scss";
 import { Pokemon } from "../../types/Pokemon";
 import { NameFilter } from "../Filter/NameFilter";
 import { TypeFilter } from "../Filter/TypeFilter";
+import classNames from "classnames";
+import { useAppSelector } from "../../app/hooks";
+import { RootState } from "../../app/store";
 
 interface ITable {
   rawData: Pokemon[];
@@ -87,11 +90,13 @@ export const Table: FC<ITable> = ({ rawData, onClick }) => {
       useSortBy
     );
 
+  const dark = useAppSelector((state: RootState) => state.darkMode.dark)
+
   // Render the UI for your table
   return (
-    <div className={styles.Table}>
+    <div className={classNames([styles.Table, {primary: !dark, "primary-dark": dark }])}>
       <table {...getTableProps()}>
-        <thead>
+        <thead className={classNames([{primary: !dark, "primary-dark": dark }])}>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
@@ -124,6 +129,7 @@ export const Table: FC<ITable> = ({ rawData, onClick }) => {
                   onClick(row.original);
                 }}
                 {...row.getRowProps()}
+                className={classNames([{"text-primaryH": !dark, "text-primaryHDark": dark}])}
               >
                 {row.cells.map((cell) => {
                   return (

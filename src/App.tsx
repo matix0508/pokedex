@@ -40,7 +40,7 @@ function App() {
             dispatch(AddPokemons(tab.length));
           }}
         >
-          {status === "loading" ? "Getting them..." : "Bring Me MORE Pokemons!"}
+          {status === "loading" ? "Catching them..." : "Bring Me MORE Pokemons!"}
         </Button>
       </header>
       <main className={styles.App__main}>
