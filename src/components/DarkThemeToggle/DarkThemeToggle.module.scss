@@ -1,0 +1,10 @@
+@import "../../config.scss";
+.DarkThemeToggle {
+    position: absolute;
+    margin: 1rem;
+    padding: 1rem;
+    right: 5rem;
+    cursor: pointer;
+    border-radius: $radius;
+    @include transition;
+}

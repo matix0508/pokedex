@@ -8,12 +8,16 @@ import { AddPokemons } from "./features/pokemonSlice";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { RootState } from "./app/store";
 import { Counter } from "./components/Counter/Counter";
+import classNames from "classnames";
+import { DarkThemeToggle } from "./components/DarkThemeToggle/DarkThemeToggle";
 
 function App() {
   const [current, setCurrent] = useState<Pokemon>();
   const dispatch = useAppDispatch();
   const tab = useAppSelector((state: RootState) => state.counter.value);
   const status = useAppSelector((state: RootState) => state.counter.status);
+  const dark = useAppSelector((state: RootState) => state.darkMode.dark)
+
 
   useEffect(() => {
     dispatch(AddPokemons(0));
@@ -24,10 +28,12 @@ function App() {
       return <>An Error Has occured</>;
   }
 
+
   return (
-    <>
+    <div className={classNames([styles.App, {bg: !dark, "bg-dark": dark}])}>
+      <DarkThemeToggle />
     <Counter pokemons={tab.length} />
-      <header>
+      <header className={classNames([styles.App__header])}>
         <h1>Pokedex</h1>
         <Button
           onClick={() => {
@@ -37,18 +43,18 @@ function App() {
           {status === "loading" ? "Getting them..." : "Bring Me MORE Pokemons!"}
         </Button>
       </header>
-      <main className={styles.App}>
+      <main className={styles.App__main}>
         <Table
           rawData={tab}
           onClick={(p: Pokemon) => {
             setCurrent(p);
           }}
         />
-        <div className={styles.App__box}>
+        <div className={styles.App__main__box}>
           {!!current ? <Box pokemon={current} /> : <></>}
         </div>
       </main>
-    </>
+    </div>
   );
 }
 

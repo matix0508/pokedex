@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import darkModeSlice from '../features/darkModeSlice';
 import pokemonSlice from '../features/pokemonSlice';
 
 export const store = configureStore({
   reducer: {
     counter: pokemonSlice,
+    darkMode: darkModeSlice
   },
 });
 
