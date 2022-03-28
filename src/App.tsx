@@ -33,7 +33,7 @@ function App() {
     <div className={classNames([styles.App, {bg: !dark, "bg-dark": dark}])}>
       <DarkThemeToggle />
     <Counter pokemons={tab.length} />
-      <header className={classNames([styles.App__header])}>
+      <header className={classNames([styles.App__header, {bg: !dark, "bg-dark": dark}])}>
         <h1>Pokedex</h1>
         <Button
           onClick={() => {
