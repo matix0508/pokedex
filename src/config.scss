@@ -1,9 +1,15 @@
-$primary: #FF0000;
+$primary: #a82c2c;
 $onPrimary: #27274b;
-$secondary: #3B4CCA;
+$secondary: #27274b;
 $onSecondary: #f8e9e9;
 $bg: lighten(#FFDE00, 20);
 $onBg: rgb(255, 0, 0);
+$primaryDark: #fa7070;
+$onPrimaryDark: #27274b;
+$secondaryDark: lighten(#FFDE00, 20);
+$onSecondaryDark: rgb(255, 0, 0);
+$bgDark: #27274b;
+$onBgDark: lighten(#FFDE00, 20);
 $large: 1300px;
 $big: 992px;
 $medium: 768px;
@@ -20,4 +26,35 @@ $radius: 0.5rem;
 @font-face {
     font-family: "Pokemon";
     src: url('./fonts/Pokemon\ Solid.ttf');
+}
+
+.primary {
+    background-color: $primary;
+    color: $onPrimary;
+}
+
+.secondary {
+    background-color: $secondary;
+    color: $onSecondary;
+}
+
+.bg {
+    background: $bg;
+    color: $onBg;
+    z-index: 1;
+}
+
+.primary-dark {
+    background-color: $primaryDark;
+    color: $onPrimaryDark;
+}
+
+.secondary-dark {
+    background-color: $secondaryDark;
+    color: $onSecondaryDark;
+}
+
+.bg-dark {
+    background: $bgDark;
+    color: $onBgDark;
 }

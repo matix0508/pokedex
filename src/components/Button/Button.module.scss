@@ -7,8 +7,6 @@
     border-radius: $radius;
     height: fit-content;
     width: fit-content;
-    background-color: $secondary;
-    color: $onSecondary;
     cursor: pointer;
     @include transition;
     &:hover {
