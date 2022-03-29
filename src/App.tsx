@@ -54,9 +54,9 @@ export default function App() {
             setCurrent(p);
           }}
         />
-        <div className={styles.App__main__box}>
-          {!!current && <Box pokemon={current} reset={() => setCurrent(undefined)}/>}
-        </div>
+        {!!current && (
+          <Box pokemon={current} reset={() => setCurrent(undefined)} />
+        )}
       </main>
     </div>
   );

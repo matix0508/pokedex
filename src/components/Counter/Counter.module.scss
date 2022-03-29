@@ -19,3 +19,14 @@
         @include shadow;
     }
 }
+
+@media only screen and (max-width: 580px) {
+    .Counter {
+        text-indent: -99999px;
+        margin: 0;
+        &__number {
+            display: block;
+            text-indent: 0;
+        }
+    }
+}

@@ -22,3 +22,35 @@
         }
     }
 }
+
+@media only screen and (max-width: 1100px) {
+    .App {
+        &__main {
+            display: flex;
+            justify-content: center;
+            &__box {
+                margin: 0;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .App {
+        &__header {
+            h1 {
+                font-size: 3rem;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 580px) {
+    .App {
+        &__header {
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    }
+}
