@@ -72,6 +72,9 @@
         position: absolute;
         margin: 1rem;
         justify-self: center;
+        &__header {
+            font-size: 2rem;
+        }
         &__body {
             ul {
                 margin: auto;
