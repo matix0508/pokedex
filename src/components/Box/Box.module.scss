@@ -1,7 +1,7 @@
 @import "../../config.scss";
 .Box {
     height: fit-content;
-    width: 40%;
+    max-width: 400px;
     padding: 1rem;
     margin-left: 5rem;
     border-radius: $radius;
@@ -25,6 +25,8 @@
             border-radius: 50%;
             margin: 0.5rem;
             padding: 0.5rem;
+            margin-top: 0;
+            padding-top: 0;
             @include transition;
             &:hover {
                 @include shadow;
@@ -59,6 +61,23 @@
                 margin: 0.5rem;
                 span {
                     font-weight: bold;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1100px) {
+    .Box {
+        position: absolute;
+        margin: 1rem;
+        justify-self: center;
+        &__body {
+            ul {
+                margin: auto;
+                li {
+                    padding: auto;
+                    margin: auto;
                 }
             }
         }

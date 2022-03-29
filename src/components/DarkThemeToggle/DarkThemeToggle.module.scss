@@ -9,3 +9,9 @@
     border-radius: $radius;
     @include transition;
 }
+
+@media only screen and (max-width: 580px) {
+    .DarkThemeToggle {
+        right: 1rem;
+    }
+}
