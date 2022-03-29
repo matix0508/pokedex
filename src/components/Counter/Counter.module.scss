@@ -1,8 +1,21 @@
 @import "../../config.scss";
 .Counter {
     position: absolute;
+    top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin: 1rem;
     padding: 1rem;
-    border-radius: 2rem;
-    @include shadow;
+    margin-top: 0;
+    @include transition;
+    border-radius: $radius;
+    &__number {
+        @include transition;
+        padding: 1rem;
+        border-radius: 2rem;
+        width: fit-content;
+        height: fit-content;
+        @include shadow;
+    }
 }

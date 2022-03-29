@@ -90,17 +90,24 @@ export const Table: FC<ITable> = ({ rawData, onClick }) => {
       useSortBy
     );
 
-  const dark = useAppSelector((state: RootState) => state.darkMode.dark)
+  const dark = useAppSelector((state: RootState) => state.darkMode.dark);
 
   // Render the UI for your table
   return (
-    <div className={classNames([styles.Table, {primary: !dark, "primary-dark": dark }])}>
+    <div
+      className={classNames([
+        styles.Table,
+        { primary: !dark, "primary-dark": dark },
+      ])}
+    >
       <table {...getTableProps()}>
-        <thead className={classNames([{primary: !dark, "primary-dark": dark }])}>
+        <thead
+          className={classNames([{ primary: !dark, "primary-dark": dark }])}
+        >
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th>
+                <th key={column.id}>
                   <span
                     {...column.getHeaderProps(column.getSortByToggleProps())}
                   >
@@ -121,24 +128,32 @@ export const Table: FC<ITable> = ({ rawData, onClick }) => {
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr
-                onClick={() => {
-                  onClick(row.original);
-                }}
-                {...row.getRowProps()}
-                className={classNames([{"text-primaryH": !dark, "text-primaryHDark": dark}])}
-              >
-                {row.cells.map((cell) => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                  );
-                })}
-              </tr>
-            );
-          })}
+          {rows.length === 0 ? (
+            <tr className={styles.Table__noData}>
+              <td>Try Catching Some more Pokemons</td>
+            </tr>
+          ) : (
+            rows.map((row) => {
+              prepareRow(row);
+              return (
+                <tr
+                  onClick={() => {
+                    onClick(row.original);
+                  }}
+                  {...row.getRowProps()}
+                  className={classNames([
+                    { "text-primaryH": !dark, "text-primaryHDark": dark },
+                  ])}
+                >
+                  {row.cells.map((cell) => {
+                    return (
+                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    );
+                  })}
+                </tr>
+              );
+            })
+          )}
         </tbody>
       </table>
     </div>
