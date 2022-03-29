@@ -1,6 +1,6 @@
 # Pokedex
 
-An app that displays pokemons and informations about them
+An app that displays pokemons and information about them
 
 ## Technology
 - React.js
