@@ -52,7 +52,7 @@ $radius: 0.5rem;
     color: $onPrimary;
     @include transition;
     &:hover {
-        color: $secondary;
+        color: darken($secondary, 30);
     }
 }
 
@@ -60,6 +60,6 @@ $radius: 0.5rem;
     color: $onPrimaryDark;
     @include transition;
     &:hover {
-        color: $secondaryDark;
+        color: lighten($color: $onPrimaryDark, $amount: 30);
     }
 }

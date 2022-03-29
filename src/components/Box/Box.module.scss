@@ -31,6 +31,20 @@
             }
         }
     }
+    &__close {
+        align-self: flex-end;
+        padding: 1rem;
+        cursor: pointer;
+        width: fit-content;
+        height: fit-content;
+        border-radius: 50%;
+        @include transition;
+        &:hover {
+            background-color: black;
+            color: red;
+            @include shadow;
+        }
+    }
     &__body {
         ul {
             display: flex;

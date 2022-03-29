@@ -5,12 +5,16 @@
     border-radius: 0.5rem;
     overflow-y: scroll;
     height: 65vh;
-    width: fit-content;
+    max-width: 90vw;
     @include shadow;
     -ms-overflow-style: none;
     scrollbar-width: none;
     &::-webkit-scrollbar {
         display: none;
+    }
+    &__noData {
+        padding: 1rem;
+        margin: 1rem;
     }
     table {
         margin: 1rem;
@@ -32,9 +36,6 @@
             border-bottom: 0.2rem;
             border-style: groove;
             border-color: $secondary;
-            &:hover {
-                color: darken($secondary, 20);
-            }
         }
     }
     tbody {
@@ -43,7 +44,6 @@
             @include transition;
             border-radius: $radius;
             &:hover {
-                color: darken($secondary, 20);
                 @include shadow;
             }
         }

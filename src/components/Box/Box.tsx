@@ -8,23 +8,28 @@ import { RootState } from "../../app/store";
 
 interface IBox {
   pokemon: Pokemon;
+  reset: () => void;
 }
 
-export const Box: FC<IBox> = ({ pokemon }) => {
-
-  const dark = useAppSelector((state: RootState) => state.darkMode.dark)
+export const Box: FC<IBox> = ({ pokemon, reset }) => {
+  const dark = useAppSelector((state: RootState) => state.darkMode.dark);
   return (
-    <div className={classNames([styles.Box, {primary: !dark, "primary-dark": dark}])}>
+    <div
+      className={classNames([
+        styles.Box,
+        { primary: !dark, "primary-dark": dark },
+      ])}
+    >
+      <div onClick={reset} className={styles.Box__close}>
+        x
+      </div>
       <div className={styles.Box__header}>
         <img src={pokemon.sprite} width={150} alt={pokemon.name} />
         {pokemon.name}
-        </div>
+      </div>
       <div className={classNames([styles.Box__body])}>
-        
         <ul>
-          <BoxItem label="Type">
-            {pokemon.type.join(", ")}
-            </BoxItem>
+          <BoxItem label="Type">{pokemon.type.join(", ")}</BoxItem>
           <BoxItem label="Height">{pokemon.height}</BoxItem>
           <BoxItem label="Weight">{pokemon.weight}</BoxItem>
         </ul>
