@@ -129,14 +129,14 @@ export const Table: FC<ITable> = ({ rawData, onClick }) => {
         </thead>
         <tbody {...getTableBodyProps()}>
           {rows.length === 0 ? (
-            <tr className={styles.Table__noData}>
+            <tr  className={styles.Table__noData}>
               <td>Try Catching Some more Pokemons</td>
             </tr>
           ) : (
             rows.map((row) => {
               prepareRow(row);
               return (
-                <tr
+                <tr role="row"
                   onClick={() => {
                     onClick(row.original);
                   }}
