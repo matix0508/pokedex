@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/pokedex/static/css/main.da38b06a.css",
+    "main.css": "/pokedex/static/css/main.9de8c8f5.css",
     "main.js": "/pokedex/static/js/main.e76ccebf.js",
     "static/media/Pokemon Solid.ttf": "/pokedex/static/media/Pokemon Solid.5d60be1f7ff5fcc21fc1.ttf",
     "index.html": "/pokedex/index.html",
-    "main.da38b06a.css.map": "/pokedex/static/css/main.da38b06a.css.map",
+    "main.9de8c8f5.css.map": "/pokedex/static/css/main.9de8c8f5.css.map",
     "main.e76ccebf.js.map": "/pokedex/static/js/main.e76ccebf.js.map"
   },
   "entrypoints": [
-    "static/css/main.da38b06a.css",
+    "static/css/main.9de8c8f5.css",
     "static/js/main.e76ccebf.js"
   ]
 }
