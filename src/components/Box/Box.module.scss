@@ -1,6 +1,6 @@
 @import "../../config.scss";
 .Box {
-    height: fit-content;
+    max-height: fit-content;
     max-width: 400px;
     padding: 1rem;
     margin-left: 5rem;

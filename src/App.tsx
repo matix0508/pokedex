@@ -6,25 +6,36 @@ import { Box } from "./components/Box/Box";
 import { Button } from "./components/Button/Button";
 import { AddPokemons } from "./features/pokemonSlice";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
-import { RootState } from "./app/store";
 import { Counter } from "./components/Counter/Counter";
 import classNames from "classnames";
 import { DarkThemeToggle } from "./components/DarkThemeToggle/DarkThemeToggle";
+import { RootState } from "./app/store";
+
+const loadingText = "Catching them...";
+const idleText = "Bring Me MORE Pokemons!";
+
+const getCounterValue = (state: RootState) => state.counter.value;
+
 
 export default function App() {
   const [current, setCurrent] = useState<Pokemon>();
   const dispatch = useAppDispatch();
-  const tab = useAppSelector((state: RootState) => state.counter.value);
-  const status = useAppSelector((state: RootState) => state.counter.status);
-  const dark = useAppSelector((state: RootState) => state.darkMode.dark);
+  // const tab = useAppSelector(getCounterValue);
+  const tab = useAppSelector(getCounterValue);
+  const status = useAppSelector((state) => state.counter.status);
+  const dark = useAppSelector((state) => state.darkMode.dark);
 
   useEffect(() => {
     dispatch(AddPokemons(0));
   }, [dispatch]);
 
-  if (status === "failed") {
-    return <>An Error Has occured</>;
-  }
+
+
+  useEffect(() => {
+    if (status === "failed") {
+      alert("An Error Has occured")
+    }
+  }, [status])
 
   return (
     <div className={classNames([styles.App, { bg: !dark, "bg-dark": dark }])}>
@@ -42,18 +53,11 @@ export default function App() {
             dispatch(AddPokemons(tab.length));
           }}
         >
-          {status === "loading"
-            ? "Catching them..."
-            : "Bring Me MORE Pokemons!"}
+          {status === "loading" ? loadingText : idleText}
         </Button>
       </header>
       <main className={styles.App__main}>
-        <Table
-          rawData={tab}
-          onClick={(p: Pokemon) => {
-            setCurrent(p);
-          }}
-        />
+        <Table rawData={tab} onClick={setCurrent} />
         {!!current && (
           <Box pokemon={current} reset={() => setCurrent(undefined)} />
         )}

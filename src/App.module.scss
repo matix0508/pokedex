@@ -1,6 +1,6 @@
 @import "./config.scss";
 .App {
-    height: 100vh;
+    min-height: 100vh;
     @include transition;
     &__main {
         text-align: center;
