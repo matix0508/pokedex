@@ -21,4 +21,4 @@ npm run start
 ```
 
 ## Live
-- to see a live version of an app go to: https://matix0508.github.io/pokedex/
+- to see a live version of an app go to: https://wleklinskimateusz.github.io/pokedex/
