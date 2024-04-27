@@ -5,61 +5,42 @@ $medium: 768px;
 $small: 576px;
 $radius: 0.5rem;
 @mixin shadow {
-    box-shadow: 0 1px 5px #000;
+  box-shadow: 0 1px 5px #000;
 }
 
 @mixin transition {
-    transition: all 0.4s ease-out;
+  transition: all 0.4s ease-out;
 }
 
 @font-face {
-    font-family: "Pokemon";
-    src: url("./fonts/Pokemon\ Solid.ttf");
+  font-family: "Pokemon";
+  src: url("./fonts/Pokemon\ Solid.ttf");
 }
 
 .primary {
-    background-color: $primary;
-    color: $onPrimary;
+  background-color: $primary;
+  color: $onPrimary;
+  &:is(.dark *) {
+    background-color: $primaryDark;
+    color: $onPrimaryDark;
+  }
 }
 
 .secondary {
-    background-color: $secondary;
-    color: $onSecondary;
+  background-color: $secondary;
+  color: $onSecondary;
+  &:is(.dark *) {
+    background-color: $secondaryDark;
+    color: $onSecondaryDark;
+  }
 }
 
 .bg {
-    background: $bg;
-    color: $onBg;
-    z-index: 1;
-}
-
-.primary-dark {
-    background-color: $primaryDark;
-    color: $onPrimaryDark;
-}
-
-.secondary-dark {
-    background-color: $secondaryDark;
-    color: $onSecondaryDark;
-}
-
-.bg-dark {
+  background: $bg;
+  color: $onBg;
+  z-index: 1;
+  &:is(.dark *) {
     background: $bgDark;
     color: $onBgDark;
-}
-
-.text-primaryH {
-    color: $onPrimary;
-    @include transition;
-    &:hover {
-        color: darken($secondary, 30);
-    }
-}
-
-.text-primaryHDark {
-    color: $onPrimaryDark;
-    @include transition;
-    &:hover {
-        color: lighten($color: $onPrimaryDark, $amount: 30);
-    }
+  }
 }

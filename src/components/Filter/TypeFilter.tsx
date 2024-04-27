@@ -1,25 +1,26 @@
 import React, { FC, useMemo } from "react";
 import styles from "./Filter.module.scss";
 
-interface ITypeFilter {
+type TypeFilterProps = {
   column: {
     filterValue: string;
     setFilter: (arg: string | undefined) => void;
-    preFilteredRows: any;
+    preFilteredRows: { values: string[][] }[];
     id: number;
   };
-}
+};
 
-export const TypeFilter: FC<ITypeFilter> = ({
+export const TypeFilter: FC<TypeFilterProps> = ({
   column: { filterValue, setFilter, preFilteredRows, id },
 }) => {
-  const options = useMemo(() => {
-    const options = new Set<string>();
-    preFilteredRows.forEach((row: { values: string[][] }) => {
-      row.values[id].forEach((t) => options.add(t));
-    });
-    return Array.from(options.values());
-  }, [id, preFilteredRows]);
+  const options = useMemo(
+    () =>
+      preFilteredRows
+        .flatMap((row) => row.values[id])
+        .filter((v, idx, arr) => arr.indexOf(v) === idx),
+    [id, preFilteredRows]
+  );
+
   return (
     <select
       className={styles.Filter}

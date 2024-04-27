@@ -1,8 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../app/store";
 import { Pokemon } from "../types/Pokemon";
-import { ResultApi } from "../types/ResultApi";
-import { TypeApi } from "../types/TypeApi";
+import { z } from "zod";
 
 export interface PokemonState {
   value: Pokemon[];
@@ -22,24 +21,45 @@ export const AddPokemons = createAsyncThunk(
         `https://pokeapi.co/api/v2/pokemon/?offset=${offset}`
       );
 
-      // throw new Error("UPS")
-
       const resJson = await res.json();
-      const pokemons: Pokemon[] = resJson.results.map(
-        async (item: ResultApi) => {
-          const pokemon = await fetch(item.url);
-          const pokemonJson = await pokemon.json();
-          const output: Pokemon = {
-            name: item.name,
-            type: pokemonJson.types.map((item: TypeApi) => item.type.name),
-            sprite: pokemonJson.sprites.front_default,
-            height: pokemonJson.height,
-            weight: pokemonJson.weight,
-          };
-          return output;
-        }
-      );
-      return Promise.all(pokemons).then((values) => values);
+      const schema = z
+        .object({
+          results: z
+            .object({
+              name: z.string(),
+              url: z.string(),
+            })
+            .array(),
+        })
+        .transform(({ results }) => results);
+      const validatedResponse = schema.parse(resJson);
+      const pokemons = validatedResponse.map(async (item) => {
+        const pokemon = await fetch(item.url);
+        const pokemonJson = await pokemon.json();
+        const schema = z.object({
+          types: z.array(
+            z.object({
+              slot: z.number(),
+              type: z.object({ name: z.string(), url: z.string() }),
+            })
+          ),
+          sprites: z.object({
+            front_default: z.string(),
+          }),
+          height: z.number().optional(),
+          weight: z.number().optional(),
+        });
+        const validatedPokemon = schema.parse(pokemonJson);
+        const output: Pokemon = {
+          name: item.name,
+          type: validatedPokemon.types.map(({ type }) => type.name),
+          sprite: validatedPokemon.sprites.front_default,
+          height: validatedPokemon.height,
+          weight: validatedPokemon.weight,
+        };
+        return output;
+      });
+      return Promise.all(pokemons);
     } catch (err) {
       return rejectWithValue(new Error("Pokemon is dead"));
     }
@@ -60,9 +80,9 @@ export const pokemonSlice = createSlice({
         state.status = "idle";
         state.value = state.value.concat(action.payload);
       })
-      .addCase(AddPokemons.rejected, (state, action) => {
-        state.status = "failed"
-      })
+      .addCase(AddPokemons.rejected, (state) => {
+        state.status = "failed";
+      });
   },
 });
 

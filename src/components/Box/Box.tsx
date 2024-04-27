@@ -1,25 +1,17 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { Pokemon } from "../../types/Pokemon";
 import styles from "./Box.module.scss";
-import { BoxItem } from "../BoxItem/BoxItem";
 import classNames from "classnames";
-import { useAppSelector } from "../../app/hooks";
-import { RootState } from "../../app/store";
 
-interface IBox {
-  pokemon: Pokemon;
+type BoxProps = {
+  pokemon?: Pokemon;
   reset: () => void;
-}
+};
 
-export const Box: FC<IBox> = ({ pokemon, reset }) => {
-  const dark = useAppSelector((state: RootState) => state.darkMode.dark);
+export const Box: FC<BoxProps> = ({ pokemon, reset }) => {
+  if (!pokemon) return null;
   return (
-    <div
-      className={classNames([
-        styles.Box,
-        { primary: !dark, "primary-dark": dark },
-      ])}
-    >
+    <div className={classNames([styles.Box, "primary"])}>
       <div onClick={reset} className={styles.Box__close}>
         x
       </div>
@@ -27,7 +19,7 @@ export const Box: FC<IBox> = ({ pokemon, reset }) => {
         <img src={pokemon.sprite} width={150} alt={pokemon.name} />
         {pokemon.name}
       </div>
-      <div className={classNames([styles.Box__body])}>
+      <div className={styles.Box__body}>
         <ul>
           <BoxItem label="Type">{pokemon.type.join(", ")}</BoxItem>
           <BoxItem label="Height">{pokemon.height}</BoxItem>
@@ -37,3 +29,11 @@ export const Box: FC<IBox> = ({ pokemon, reset }) => {
     </div>
   );
 };
+
+const BoxItem: FC<{
+  label: string;
+}> = ({ label, children }) => (
+  <li>
+    <span>{label}</span>: {children}
+  </li>
+);

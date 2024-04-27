@@ -1,24 +1,14 @@
-/* eslint-disable react/jsx-key */
 import React, { FC } from "react";
-import {
-  Column,
-  FilterTypes,
-  useFilters,
-  useSortBy,
-  useTable,
-} from "react-table";
+import { Column, useFilters, useSortBy, useTable } from "react-table";
 import styles from "./Table.module.scss";
 import { Pokemon } from "../../types/Pokemon";
 import { NameFilter } from "../Filter/NameFilter";
 import { TypeFilter } from "../Filter/TypeFilter";
 import classNames from "classnames";
-import { useAppSelector } from "../../app/hooks";
-import { RootState } from "../../app/store";
-
-interface ITable {
+type TableProps = {
   rawData: Pokemon[];
   onClick: (ex: Pokemon) => void;
-}
+};
 
 const getColumns: Column<Pokemon>[] = [
   {
@@ -28,9 +18,9 @@ const getColumns: Column<Pokemon>[] = [
   {
     Header: "Type",
     accessor: "type",
-    Cell: (tableProps: any) => (
+    Cell: (tableProps) => (
       <ul>
-        {tableProps.row.original.type.map((item: string, i: number) => (
+        {tableProps.row.original.type.map((item, i) => (
           <li key={i}>{item}</li>
         ))}
       </ul>
@@ -41,7 +31,7 @@ const getColumns: Column<Pokemon>[] = [
   {
     Header: "Sprite",
     accessor: "sprite",
-    Cell: (tableProps: any) => (
+    Cell: (tableProps) => (
       <img src={tableProps.row.original.sprite} width={60} alt={"Pokemon"} />
     ),
     disableSortBy: true,
@@ -49,26 +39,9 @@ const getColumns: Column<Pokemon>[] = [
   },
 ];
 
-export const Table: FC<ITable> = ({ rawData, onClick }) => {
-  const filterTypes: FilterTypes<Pokemon> = React.useMemo(
-    () => ({
-      text: (rows, filterValue, id) => {
-        return rows.filter((row) => {
-          const rowValue = row.values[id];
-          return rowValue !== undefined
-            ? String(rowValue)
-                .toLowerCase()
-                .startsWith(String(filterValue).toLowerCase())
-            : true;
-        });
-      },
-    }),
-    []
-  );
-
+export const Table: FC<TableProps> = ({ rawData, onClick }) => {
   const defaultColumn = React.useMemo(
     () => ({
-      // Let's set up our default Filter UI
       Filter: NameFilter,
     }),
     []
@@ -84,26 +57,14 @@ export const Table: FC<ITable> = ({ rawData, onClick }) => {
         data,
         columns,
         defaultColumn,
-        filterTypes,
       },
       useFilters,
       useSortBy
     );
-
-  const dark = useAppSelector((state: RootState) => state.darkMode.dark);
-
-  // Render the UI for your table
   return (
-    <div
-      className={classNames([
-        styles.Table,
-        { primary: !dark, "primary-dark": dark },
-      ])}
-    >
+    <div className={classNames([styles.Table, "primary"])}>
       <table {...getTableProps()}>
-        <thead
-          className={classNames([{ primary: !dark, "primary-dark": dark }])}
-        >
+        <thead className="primary">
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
@@ -129,27 +90,22 @@ export const Table: FC<ITable> = ({ rawData, onClick }) => {
         </thead>
         <tbody {...getTableBodyProps()}>
           {rows.length === 0 ? (
-            <tr  className={styles.Table__noData}>
+            <tr className={styles.Table__noData}>
               <td>Try Catching Some more Pokemons</td>
             </tr>
           ) : (
             rows.map((row) => {
               prepareRow(row);
               return (
-                <tr role="row"
-                  onClick={() => {
-                    onClick(row.original);
-                  }}
+                <tr
+                  role="row"
+                  onClick={() => onClick(row.original)}
                   {...row.getRowProps()}
-                  className={classNames([
-                    { "text-primaryH": !dark, "text-primaryHDark": dark },
-                  ])}
+                  className="text-primaryH"
                 >
-                  {row.cells.map((cell) => {
-                    return (
-                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                    );
-                  })}
+                  {row.cells.map((cell) => (
+                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                  ))}
                 </tr>
               );
             })

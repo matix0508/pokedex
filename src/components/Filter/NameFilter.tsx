@@ -1,18 +1,21 @@
 import React, { FC } from "react";
 import styles from "./Filter.module.scss";
 
-export interface INameFilter {
+export type NameFilterProps = {
   column: {
     filterValue: string;
-    preFilteredRows: any;
+    preFilteredRows: unknown[];
     setFilter: (arg: string | undefined) => void;
   };
-}
+};
 
-export const NameFilter: FC<INameFilter> = ({
-  column: { filterValue, preFilteredRows, setFilter },
+export const NameFilter: FC<NameFilterProps> = ({
+  column: {
+    filterValue,
+    preFilteredRows: { length: count },
+    setFilter,
+  },
 }) => {
-  const count = preFilteredRows.length;
   return (
     <input
       className={styles.Filter}
