@@ -1,6 +1,6 @@
 # Pokedex
 
-An app that displays pokemons and information about them
+Fetch them all with my app! Pokedex is a simple app that allows you to browse through all the pokemons. You can search for a specific pokemon by name or id, or you can filter them by type. You can also see more details about each pokemon by clicking on it. The app is fully responsive and works on all devices.
 
 ## Technology
 
